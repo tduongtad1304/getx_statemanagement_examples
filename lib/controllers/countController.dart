@@ -5,11 +5,11 @@ import 'package:get/get.dart';
 
 class CountController extends GetxController {
   int count = 0; //no need for .obs
-  final number = TextEditingController().obs;
+  final number = TextEditingController();
 
   void increment() {
-    if (number.value.text.isNotEmpty) {
-      count += int.parse(number.value.text);
+    if (number.text.isNotEmpty) {
+      count += int.parse(number.text);
     } else {
       count++;
     }
@@ -18,8 +18,8 @@ class CountController extends GetxController {
   }
 
   void decrement() {
-    if (number.value.text.isNotEmpty) {
-      count -= int.parse(number.value.text);
+    if (number.text.isNotEmpty) {
+      count -= int.parse(number.text);
     } else {
       count--;
     }

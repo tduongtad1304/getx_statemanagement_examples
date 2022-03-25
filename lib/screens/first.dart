@@ -28,7 +28,6 @@ class First extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             GetBuilder<CountController>(
-              init: countController,
               // You can initialize your controller here the first time. Don't use init in your other GetBuilders of same controller
               // GetX/Obx is reactive (streams) while GetBuilder only rebuilds on update()
               builder: (s) => Text(
@@ -53,8 +52,7 @@ class First extends StatelessWidget {
               height: 20,
             ),
             GetX<UserController>(
-              init:
-                  userController, // can initialize inside GetX instead of .put
+              // can initialize inside GetX instead of .put
               builder: (_) => Text(
                 'Name: ${_.user.value.name}',
                 style: const TextStyle(
@@ -68,7 +66,7 @@ class First extends StatelessWidget {
               () => Column(
                 children: [
                   Text(
-                    'Stored Count: ${Get.find<UserController>().user.value.count}',
+                    'Stored Count: ${userController.user.value.count}',
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 17,
@@ -96,9 +94,9 @@ class First extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                Get.find<UserController>().updateUser(
-                  Get.find<CountController>().count,
-                  Get.find<UserController>().nameController.value.text,
+                userController.updateUser(
+                  countController.count,
+                  userController.nameController.value.text,
                 );
                 //using Get.find locates the controller that was created in 'init' in GetX
               },
@@ -122,17 +120,14 @@ class First extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text('Enter a number'),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              width: 75,
-              height: 50,
-              child: CustomTextField(
-                isAlign: true,
-                controller: countController.number.value,
-                keyboardType: TextInputType.number,
-              ),
+          const Text('Enter a number '),
+          SizedBox(
+            width: 75,
+            height: 50,
+            child: CustomTextField(
+              isAlign: true,
+              controller: countController.number,
+              keyboardType: TextInputType.number,
             ),
           ),
           const SizedBox(
@@ -144,7 +139,7 @@ class First extends StatelessWidget {
               tooltip: 'Increment',
               child: const Icon(Icons.add),
               onPressed: () {
-                Get.find<CountController>().increment();
+                countController.increment();
               }),
           const SizedBox(
             width: 10,
@@ -155,7 +150,7 @@ class First extends StatelessWidget {
               tooltip: 'Decrement',
               child: const Icon(Icons.remove),
               onPressed: () {
-                Get.find<CountController>().decrement();
+                countController.decrement();
               }),
           const SizedBox(
             width: 10,
@@ -166,7 +161,7 @@ class First extends StatelessWidget {
               tooltip: 'Reset',
               child: const Icon(Icons.restore_rounded),
               onPressed: () {
-                Get.find<CountController>().reset();
+                countController.reset();
               }),
         ],
       ),

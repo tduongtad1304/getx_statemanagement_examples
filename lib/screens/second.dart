@@ -111,6 +111,13 @@ class Second extends StatelessWidget {
                   icon: const Icon(Icons.exposure_zero_outlined),
                   duration: const Duration(seconds: 2),
                   backgroundColor: Colors.white,
+                  onTap: (_) {
+                    Get.to(
+                      () => const OnlySum(),
+                      arguments: sumController.sum,
+                      transition: Transition.cupertino,
+                    );
+                  },
                 );
               },
             ),
